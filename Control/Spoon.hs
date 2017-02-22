@@ -71,10 +71,10 @@ teaspoonWithHandles handles a = unsafePerformIO $
 teaspoon :: NFData a => a -> Maybe a
 teaspoon = allocLimit teaspoon'
 
-teaspoon' :: NFData a => a -> Maybe a
+teaspoon' :: a -> Maybe a
 teaspoon' = teaspoonWithHandles defaultHandles
 
-allocLimit :: (NFData a) => (a -> Maybe a) -> a -> Maybe a
+allocLimit :: (a -> Maybe a) -> a -> Maybe a
 allocLimit f x = unsafePerformIO (withAsync enforce getResult)
   where enforce = do setAllocationCounter memLimitBytes
                      enableAllocationLimit
