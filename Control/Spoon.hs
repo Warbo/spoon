@@ -68,7 +68,7 @@ teaspoonWithHandles handles a = unsafePerformIO $
 
 -- | Like 'spoon', but only evaluates to WHNF.
 {-# INLINE teaspoon #-}
-teaspoon :: NFData a => a -> Maybe a
+teaspoon :: a -> Maybe a
 teaspoon = allocLimit teaspoon'
 
 teaspoon' :: a -> Maybe a
