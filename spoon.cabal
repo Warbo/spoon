@@ -1,17 +1,20 @@
 name:           spoon
-version:        0.3.1
+version:        0.4.0
 license:        BSD3
 license-file:   LICENSE
-author:         Matt Morrow, Dan Peebles, Liyang HU
+author:         Matt Morrow, Dan Peebles, Liyang HU, Chris Warburton
 maintainer:     Liyang HU <spoon@liyang.hu>
 stability:      experimental
 category:       Error handling
 synopsis:       Catch errors thrown from pure computations.
-copyright:      2009 Matt Morrow & Dan Peebles, 2013 Liyang HU
+copyright:      2009 Matt Morrow & Dan Peebles, 2013 Liyang HU, 2017 Chris Warburton
 description:
     Takes an error-throwing expression and puts it back in the Maybe it
     belongs in.
     .
+    As of 0.4.0, evaluation is performed in a separate thread, with an allocation
+    limit taken from the env var "ALLOC_LIMIT_BYTES", or 10MB if not set.
+    .        
     Note that this currently suffers from the
     <https://ghc.haskell.org/trac/ghc/ticket/5902 asynchronous exceptions re-thrown synchronously>
     problem. Buyer beware.
@@ -21,7 +24,9 @@ cabal-version:  >= 1.2
 library
   build-depends:
     base >= 4 && < 5,
-    deepseq >= 1
+    deepseq >= 1,
+    async
+                
   exposed-modules:
     Control.Spoon
   ghc-options: -Wall
